@@ -1,0 +1,82 @@
+; You may customize this and other start-up templates;
+; The location of this template is c:\emu8086\inc\0_com_template.txt
+include "emu8086.INC"
+org 100h
+mov ax,000h
+lea bx,MAR
+LEA SI,GRADE
+LEA DI,GPA
+mov cx,4
+ 
+next:
+cmp [bx],80h
+jae a
+cmp [bx],70h
+jae b
+cmp [bx],60h
+jae c
+cmp [bx],50h
+jae d
+ 
+ 
+a:
+add ax,005h
+inc bx
+MOV [SI],'A'
+INC SI
+ 
+ 
+MOV [DI],'5'
+INC DI
+jmp exit
+ 
+b:
+add ax,004h
+inc bx
+MOV [SI],'B'
+INC SI
+ 
+MOV [DI],'4'
+INC DI
+jmp exit
+ 
+c:
+add ax,003h
+inc bx
+MOV [SI],'C'
+INC SI
+ 
+MOV [DI],'3'
+INC DI
+jmp exit
+ 
+d:
+add ax,002h
+inc bx
+MOV [SI],'D'
+INC SI
+ 
+MOV [DI],'2'
+INC DI
+jmp exit
+ 
+ 
+ 
+ 
+ 
+; add your code here
+exit:
+loop next
+ 
+mov bl,04h
+div bl
+ 
+mov ah,2
+add al,48
+mov dl,al
+int 21h
+ 
+ret
+MAR db 70h,60h,65h,90h
+GRADE DB ?, ?,?, ?
+GPA DB ?,?,?,?
